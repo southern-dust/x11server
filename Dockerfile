@@ -1,5 +1,6 @@
-FROM debian:jessie
+FROM debian:buster
 MAINTAINER Jan Suchotzki <jan@suchotzki.de>
+MAINTAINER southern-dust <southerndust972106614@gmail.com>
 
 # first create user and group for all the X Window stuff
 # required to do this first so have consistent uid/gid between server and client container
@@ -14,12 +15,18 @@ RUN addgroup --system xusers \
 			xuser
 
 # Install xvfb as X-Server and x11vnc as VNC-Server
+RUN echo "deb http://mirrors.ustc.edu.cn/debian/ buster main contrib non-free" > /etc/apt/sources.list \
+&&  echo "deb http://mirrors.ustc.edu.cn/debian-security buster/updates main contrib non-free" >> /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
 				xvfb \
 				xauth \
 				x11vnc \
 				x11-utils \
 				x11-xserver-utils \
+				xfonts-wqy \
+				vim \
+				procps \
 		&& rm -rf /var/lib/apt/lists/*
 
 # create or use the volume depending on how container is run
