@@ -34,6 +34,6 @@ Xvfb :0 -auth ~/.Xauthority -listen tcp $DPI_OPTIONS -screen 0 $XFB_SCREEN >>~/x
 sleep 2
 
 # finally we can run the VNC-Server based on our just started X-Server
-# x11vnc -forever -passwd $VNC_PASSWORD -display :0
+x11vnc -forever -passwd $VNC_PASSWORD -display :0
 
 exec "$@"
